@@ -1,0 +1,59 @@
+generated: '2026-07-19'
+method: searched
+source: https://github.com/lingvist/nodebb-plugin-sso-lingvist/blob/master/README.md
+docs: https://github.com/lingvist/nodebb-plugin-sso-lingvist
+notes: >-
+  Lingvist publishes no self-serve developer portal or public API documentation.
+  The authentication model below is reconstructed from Lingvist's own first-party
+  open-source NodeBB SSO plugin (github.com/lingvist, npm maintainer "lingvist"),
+  whose README documents the production OAuth 2.0 endpoints, and from live probes
+  of those endpoints. OAuth client credentials are "pre-agreed with Lingvist OAuth
+  provider" per the README — this is a partner/pre-arranged client program, not
+  self-serve registration.
+summary:
+  types:
+  - oauth2
+  api_key_in: []
+  oauth2_flows:
+  - authorizationCode
+  token_format: JWT
+  bearer: true
+schemes:
+- name: LingvistOAuth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://learn.lingvist.com/#sso
+    tokenUrl: https://api.lingvist.com/oauth2/token
+    scopes:
+      auth: Authenticate the user and read their Lingvist profile
+  token_type: Bearer
+  token_format: JWT
+  token_notes: >-
+    The plugin decodes the access token with `jws.decode`, confirming the access
+    token is a signed JWT. Profile is retrieved by presenting the access token as
+    an HTTP Bearer credential to the userinfo endpoint.
+  userinfo_endpoint: https://api.lingvist.com/1.0/user/profile
+  client_registration: partner-arranged
+  sources:
+  - https://github.com/lingvist/nodebb-plugin-sso-lingvist/blob/master/README.md
+  - https://github.com/lingvist/nodebb-plugin-sso-lingvist/blob/master/library.js
+probes:
+- url: https://api.lingvist.com/oauth2/token
+  method: POST
+  status: 400
+  body: '{"error": "invalid_request"}'
+  note: RFC 6749 §5.2 error response shape; endpoint is live and POST-only (GET returns 405)
+  probed: '2026-07-19'
+- url: https://api.lingvist.com/1.0/user/profile
+  method: GET
+  status: 401
+  body: '{"code": "unauthorized", "message": "Authorization required"}'
+  note: endpoint is live and requires a bearer credential
+  probed: '2026-07-19'
+discovery:
+  openid_configuration: 404
+  oauth_authorization_server: 404
+  note: >-
+    No RFC 8414 / OIDC discovery document is published on lingvist.com,
+    api.lingvist.com or learn.lingvist.com.
