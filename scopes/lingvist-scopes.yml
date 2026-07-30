@@ -1,0 +1,26 @@
+generated: '2026-07-19'
+method: searched
+source: https://github.com/lingvist/nodebb-plugin-sso-lingvist/blob/master/library.js
+docs: https://github.com/lingvist/nodebb-plugin-sso-lingvist
+notes: >-
+  Lingvist publishes no scopes/permissions reference page. The single scope below
+  is the one Lingvist's own SSO plugin requests (`constants.scope = 'auth'`).
+  There is no OIDC discovery document and no OpenAPI to derive further scopes
+  from, so this list is what is verifiably published — not necessarily the full
+  scope surface of the internal API.
+schemes:
+- name: LingvistOAuth2
+  source: https://github.com/lingvist/nodebb-plugin-sso-lingvist/blob/master/library.js
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://learn.lingvist.com/#sso
+    tokenUrl: https://api.lingvist.com/oauth2/token
+scopes:
+- scope: auth
+  description: >-
+    Authenticate the Lingvist user and read their profile from
+    https://api.lingvist.com/1.0/user/profile (used for single sign-on).
+  flows:
+  - authorizationCode
+  sources:
+  - https://github.com/lingvist/nodebb-plugin-sso-lingvist/blob/master/library.js

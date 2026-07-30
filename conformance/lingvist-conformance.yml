@@ -1,0 +1,42 @@
+generated: '2026-07-19'
+method: probed
+source: >-
+  live probes of https://api.lingvist.com/ plus
+  https://github.com/lingvist/nodebb-plugin-sso-lingvist
+notes: >-
+  Lingvist publishes no compliance or certification program (no trust center, no
+  /security page, no security.txt), so no Compliance pointer is emitted. The
+  assertions below are limited to cross-cutting technical standards that could be
+  verified on the wire.
+standards:
+- id: oauth2
+  conforms: true
+  evidence: >-
+    Authorization-code flow with authorization/token endpoints documented in
+    Lingvist's own SSO plugin; token endpoint returns the RFC 6749 section 5.2
+    error shape {"error": "invalid_request"}.
+- id: rfc6750-bearer
+  conforms: true
+  evidence: >-
+    Access token presented as an HTTP Bearer credential to
+    https://api.lingvist.com/1.0/user/profile (401 when absent).
+- id: oidc
+  conforms: false
+  evidence: no /.well-known/openid-configuration on any Lingvist host (404)
+- id: rfc8414-as-metadata
+  conforms: false
+  evidence: no /.well-known/oauth-authorization-server (404)
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    errors use a custom {"code","message"} envelope with content-type
+    application/json, not application/problem+json
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: no /.well-known/security.txt (404)
+- id: rfc8615-well-known
+  conforms: false
+  evidence: no /.well-known/api-catalog (404)
+- id: tls13
+  conforms: true
+  evidence: TLSv1.3 with HSTS max-age 31536000 (security/lingvist-domain-security.yml)

@@ -1,0 +1,43 @@
+generated: '2026-07-19'
+method: probed
+source: live responses from https://api.lingvist.com/
+notes: >-
+  Lingvist publishes no error reference. The envelopes below were captured from
+  live unauthenticated probes of the two publicly known endpoints. This is an
+  observed sample, not a complete registry.
+format: custom
+rfc9457: false
+envelopes:
+- name: api-error
+  applies_to: https://api.lingvist.com/1.0/*
+  content_type: application/json
+  shape:
+    code: string machine-readable error slug
+    message: string human-readable message
+  example: '{"code": "unauthorized", "message": "Authorization required"}'
+- name: oauth2-error
+  applies_to: https://api.lingvist.com/oauth2/token
+  content_type: application/json
+  standard: RFC 6749 section 5.2
+  shape:
+    error: string OAuth 2.0 error code
+  example: '{"error": "invalid_request"}'
+problems:
+- status: 401
+  code: unauthorized
+  title: Authorization required
+  envelope: api-error
+  observed_at: https://api.lingvist.com/1.0/user/profile
+  probed: '2026-07-19'
+- status: 400
+  code: invalid_request
+  title: Invalid OAuth 2.0 token request
+  envelope: oauth2-error
+  observed_at: https://api.lingvist.com/oauth2/token
+  probed: '2026-07-19'
+- status: 405
+  title: Method not allowed
+  envelope: unknown
+  observed_at: https://api.lingvist.com/oauth2/token
+  note: returned for GET on the token endpoint, which is POST-only
+  probed: '2026-07-19'

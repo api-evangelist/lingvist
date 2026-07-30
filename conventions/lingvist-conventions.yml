@@ -1,0 +1,52 @@
+generated: '2026-07-19'
+method: probed
+source: >-
+  live probes of https://api.lingvist.com/ plus
+  https://github.com/lingvist/nodebb-plugin-sso-lingvist
+notes: >-
+  Lingvist has no public developer documentation, so these cross-cutting
+  conventions are what could be observed on the wire and read out of Lingvist's
+  own open-source SSO plugin. Fields we could not verify are recorded as unknown
+  rather than guessed.
+authentication:
+  style: oauth2-bearer
+  token_format: JWT
+  header: 'Authorization: Bearer <access_token>'
+  artifact: authentication/lingvist-authentication.yml
+versioning:
+  scheme: uri-path
+  current: '1.0'
+  example: https://api.lingvist.com/1.0/user/profile
+  build_header:
+    name: x-learn-api-version
+    example: '2026.6.17152259'
+    format: date-based build stamp (YYYY.M.DDHHMMSS)
+    note: >-
+      Returned on every response, including unauthenticated errors. Identifies the
+      deployed build rather than the contract version.
+  artifact: lifecycle/lingvist-lifecycle.yml
+error_envelope:
+  shape:
+    code: string
+    message: string
+  content_type: application/json
+  rfc9457: false
+  artifact: errors/lingvist-problem-types.yml
+idempotency:
+  supported: unknown
+  note: >-
+    No idempotency key header is documented and none could be observed on the two
+    publicly reachable endpoints. No Idempotency pointer is emitted.
+pagination:
+  style: unknown
+  note: no publicly documented or observable collection endpoint
+transport:
+  http_version: HTTP/2
+  server: nginx
+  tls: TLSv1.3
+  hsts: true
+request_tracing:
+  request_id_header: none observed
+rate_limit_signaling:
+  headers: none observed
+  note: no RateLimit/X-RateLimit headers returned on probed endpoints

@@ -1,0 +1,31 @@
+generated: '2026-07-19'
+method: probed
+source: live probes of https://api.lingvist.com/
+notes: >-
+  Lingvist publishes no versioning policy, no deprecation policy, no SLA and no
+  status page. Everything below is observed rather than declared. No StatusPage or
+  Deprecation pointer is emitted, because neither exists.
+versioning:
+  scheme: uri-path
+  current: '1.0'
+  docs: null
+  build_header:
+    name: x-learn-api-version
+    example: '2026.6.17152259'
+deprecation:
+  policy_url: null
+  sunset_header: unknown
+  note: RFC 8594 Sunset/Deprecation header support could not be verified
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+status_page_probes:
+- url: https://status.lingvist.com
+  status: 000
+  note: does not resolve
+changelog: null
+changelog_probes:
+- url: https://lingvist.com/changelog/
+  status: 404
+deprecated_operations: []

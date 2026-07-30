@@ -1,0 +1,43 @@
+# Lingvist
+
+> Lingvist is an Estonian AI-powered language-learning company founded by former CERN physicist Mait Müntel, whose adaptive vocabulary platform uses machine learning and spaced repetition to teach the most useful words in a language first. Lingvist does not operate a public, self-serve API program; it runs an internal OAuth 2.0 API whose endpoints are publicly documented only through Lingvist's own open-source NodeBB SSO plugin.
+
+## Status
+
+- No developer portal, API reference, or self-serve API documentation is published.
+- No OpenAPI, AsyncAPI, GraphQL, or Protobuf definition is published.
+- OAuth 2.0 client credentials are, per Lingvist's own plugin README, "pre-agreed with Lingvist OAuth provider" — a partner arrangement, not self-serve registration.
+
+## APIs
+
+- [Lingvist Learn API](https://github.com/lingvist/nodebb-plugin-sso-lingvist): OAuth 2.0 protected API at https://api.lingvist.com/1.0. Only two endpoints are publicly known: the token endpoint and the user profile endpoint. Both were verified live.
+
+## Endpoints (verified)
+
+- `POST https://api.lingvist.com/oauth2/token` — OAuth 2.0 token endpoint. Returns RFC 6749 error shapes.
+- `GET https://api.lingvist.com/1.0/user/profile` — user profile; requires an HTTP Bearer JWT access token.
+- Authorization URL: `https://learn.lingvist.com/#sso`
+- Scope: `auth`
+
+## Artifacts
+
+- [Authentication](authentication/lingvist-authentication.yml): OAuth 2.0 authorization-code flow, JWT bearer tokens.
+- [OAuth scopes](scopes/lingvist-scopes.yml): the single published `auth` scope.
+- [Conventions](conventions/lingvist-conventions.yml): bearer auth, URI-path versioning, `x-learn-api-version` build header, error envelope.
+- [Error catalog](errors/lingvist-problem-types.yml): observed `{"code","message"}` envelope; not RFC 9457.
+- [Lifecycle](lifecycle/lingvist-lifecycle.yml): versioning observed; no deprecation policy, SLA, or status page.
+- [Conformance](conformance/lingvist-conformance.yml): OAuth 2.0 and RFC 6750 yes; OIDC, RFC 8414, RFC 9457, RFC 9116 no.
+- [Packages](packages/lingvist-packages.yml): one first-party npm SSO plugin; no API SDKs.
+- [Well-known](well-known/lingvist-well-known.yml): no `/.well-known/` documents published.
+- [Domain security](security/lingvist-domain-security.yml): TLS 1.3, HSTS, SPF, DMARC quarantine, CAA; no DNSSEC.
+
+## Product
+
+- [Lingvist](https://lingvist.com/): adaptive vocabulary learning across 60+ courses in 15+ languages.
+- [Lingvist for Business](https://lingvist.com/business/)
+- [Pricing](https://lingvist.com/pricing/)
+- [Help center](https://lingvist.com/help/)
+- [Blog](https://lingvist.com/blog/)
+- [About](https://lingvist.com/about-us/)
+- [Terms of service](https://lingvist.com/tos/)
+- [Privacy policy](https://lingvist.com/privacy-policy/)
