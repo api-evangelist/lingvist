@@ -44,6 +44,17 @@ tags:
 - Language Learning
 - EdTech
 - Artificial Intelligence
+- Machine-Learning
+- Spaced Repetition
+- Mobile
+- Estonia
+- Consumer
+tags_raw:
+- Company
+- Education
+- Language Learning
+- EdTech
+- Artificial Intelligence
 - Machine Learning
 - Spaced Repetition
 - Mobile
@@ -61,6 +72,10 @@ apis:
   humanURL: https://github.com/lingvist/nodebb-plugin-sso-lingvist
   baseURL: https://api.lingvist.com/1.0
   tags:
+  - Authentication
+  - Single Sign-On
+  - Language Learning
+  tags_raw:
   - OAuth
   - Authentication
   - Single Sign-On
