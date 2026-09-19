@@ -84,7 +84,7 @@ apis:
   baseURL: https://api.lingvist.com/1.0
   tags:
   - Authentication
-  - Single Sign-On
+  - SSO
   - Language Learning
   tags_raw:
   - OAuth
