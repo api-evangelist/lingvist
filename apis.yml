@@ -55,7 +55,7 @@ tags:
 - Language Learning
 - EdTech
 - Artificial Intelligence
-- Machine-Learning
+- Machine Learning
 - Spaced Repetition
 - Mobile
 - Estonia
@@ -71,6 +71,7 @@ tags_raw:
 - Mobile
 - Estonia
 - Consumer
+- Machine-Learning
 apis:
 - aid: lingvist:learn-api
   name: Lingvist Learn API
